@@ -1,4 +1,4 @@
-version: '3.8'
+
 
 services:
   frontend:
@@ -12,7 +12,7 @@ services:
       - /app/node_modules
     environment:
       - CHOKIDAR_USEPOLLING=true
-    command: ["pnpm", "dev"]
+    command: sh -c "pnpm install --force && pnpm dev"
 
   backend:
     build: 
@@ -26,7 +26,7 @@ services:
     environment:
       - NODE_ENV=development
       - DATABASE_URL=postgresql://postgres:password@db:5432/ecommerce
-    command: ["pnpm", "start:dev"]
+    command:  sh -c "pnpm install --force && pnpm start:dev"
     depends_on:
       - db
 
