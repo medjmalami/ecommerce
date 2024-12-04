@@ -20,4 +20,3 @@ COPY . .
 EXPOSE 4000
 
 # Start the backend in watch mode
-CMD ["pnpm", "start:dev"]
