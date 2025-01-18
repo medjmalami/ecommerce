@@ -1,0 +1,13 @@
+FROM node:16
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
+RUN npm install --save-dev nodemon
+CMD ["npm", "run", "dev"]
+
+EXPOSE 5000

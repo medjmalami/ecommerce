@@ -1,0 +1,36 @@
+version: "3.8"
+services:
+  back:
+    build: ./back
+    ports:
+      - "5000:5000"               # Map backend port
+    volumes:
+      - ./back:/app               # Mount local backend folder into the container
+      - /app/node_modules         # Ignore local node_modules
+    command: npm run dev          # Use the Nodemon dev script
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ecommerce
+      DB_HOST: db
+    depends_on:
+      - db
+
+  front:
+    build: ./front
+    ports:
+      - "3000:3000"               # Map frontend port
+    volumes:
+      - ./front:/app              # Mount local frontend folder
+      - /app/node_modules         # Ignore local node_modules
+    command: npm run dev          # Run Vite development server
+
+
+  db:
+    image: postgres:13
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ecommerce
